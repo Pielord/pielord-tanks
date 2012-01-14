@@ -44,7 +44,7 @@ struct __attribute__((packed)) tank_packet_map_update {
 };
 
 //ACTION packet. Sent by client when player makes action.
-struct __attribute__((packed)) lobby_packet_info {
+struct __attribute__((packed)) tank_packet_action {
     enum tank_packet_type packet_id;
     enum tank_action_type action_id;
     //Extra params?
