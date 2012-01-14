@@ -9,7 +9,7 @@
 
 //#include "player.h"
 //#include "map.h"
-
+#include "funkcijasKarlim.c"
 
 
 
