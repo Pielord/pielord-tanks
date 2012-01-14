@@ -17,7 +17,7 @@ int main(void) {
 	
 	pid_t pid;
 	           
-	int ch;
+//	int ch;
 	
 	initscr();    // Start curses mode
 	cbreak();		        // Line buffering disabled
