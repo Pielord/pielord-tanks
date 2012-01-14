@@ -48,7 +48,7 @@ int main()
     MAP map;
     int ch;
     
-	initscr();              // Start curses mode
+	initscr();// Start curses mode
 		
 	if(has_colors() == FALSE)
 	{	endwin();
