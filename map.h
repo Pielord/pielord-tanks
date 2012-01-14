@@ -24,6 +24,8 @@ enum map_tile {
 };
 
 void map_init(int map_size_x, int map_size_y);
+void create_map(MAP *p_map, bool flag);
 void map_set(int x, int y, enum map_tile);
+void fill_map(int x, int y, int size, char mas[]);
 void map_draw(struct map * m);
 void map_free(void);
