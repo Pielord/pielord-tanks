@@ -1,10 +1,10 @@
-struct player {
+typedef struct {
     //Coordinates.
     float x;
     float y;
     
     char direction;
-};
+} player;
 
 
 struct player_bullet {
