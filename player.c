@@ -1,5 +1,10 @@
 #include <string.h>
-
+/*
+#include <event2/event.h>
+#include <event2/listener.h>
+#include <event2/bufferevent.h>
+#include <event2/buffer.h>
+*/
 static struct player * all_players;
 static int player_count = 0;
 
@@ -49,6 +54,25 @@ void player_draw() {
  */
 void player_move(int player_id, char direction) {
     
+    // set player direction
+    all_players[player_id]->direction = direction;
+    
+    // move player
+    switch (direction) {
+        
+        case '>' :
+            all_players[player_id]->x++;
+        break;
+        case '<' :
+            all_players[player_id]->x--;
+        break;
+        case '^' :
+            all_players[player_id]->y--;
+        break;
+        case 'v' :
+            all_players[player_id]->y++;
+        break;
+    }
 }
 
 /**
