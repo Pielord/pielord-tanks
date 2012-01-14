@@ -1,9 +1,9 @@
 struct player {
     //Coordinates.
-    float x = 1;
-    float y = 1;
+    float x;
+    float y;
     
-    char direction = '>';
+    char direction;
 };
 
 

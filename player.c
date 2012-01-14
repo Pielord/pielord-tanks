@@ -1,4 +1,6 @@
 #include <string.h>
+#include "player.h"
+
 /*
 #include <event2/event.h>
 #include <event2/listener.h>
@@ -29,8 +31,9 @@ int player_add() {
     int player_id = all_players - 1;
 
     // set player x,y coords
-    //all_players[player_id]->x = (float) x;
-    //all_players[player_id]->y = (float) y;
+    all_players[player_id]->x = (float) 1;
+    all_players[player_id]->y = (float) 1;
+    all_players[player_id]->direction = '>';
 
     return player_id;
 
@@ -73,7 +76,14 @@ void player_move(int player_id, char direction) {
             all_players[player_id]->y++;
         break;
     }
+    
+    (player_id);
 }
+
+
+void player_redraw_location_on_map(int player_id) {
+    
+} 
 
 /**
  * Remove player from player array by his id
