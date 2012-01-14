@@ -13,4 +13,4 @@ struct tank_map {
     int size_y;
     struct tank_map *next;
     struct tank_map *prev;
-}
+}typedef tank_map;
