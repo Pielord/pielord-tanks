@@ -1,3 +1,5 @@
+#include <string.h>
+
 static struct player * all_players;
 static int player_count = 0;
 
@@ -51,7 +53,8 @@ void player_remove(int player_id) {
     // copy players one place up
     for (i = 0; i < all_players; i++) {
         if (i > player_id) {
-            all_players[i - 1] = all_players[i];
+            memcpy(all_players[i - 1], all_players[i], sizeof(struct player));
+            //all_players[i - 1] = all_players[i];
         }
     }
 
