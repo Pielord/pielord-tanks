@@ -12,7 +12,7 @@ static int player_bullet_count;
  * @param y
  * @return int
  */
-int player_add(int x, int y) {
+int player_add() {
 
     player_count++;
 
@@ -24,8 +24,8 @@ int player_add(int x, int y) {
     int player_id = all_players - 1;
 
     // set player x,y coords
-    all_players[player_id]->x = (float) x;
-    all_players[player_id]->y = (float) y;
+    //all_players[player_id]->x = (float) x;
+    //all_players[player_id]->y = (float) y;
 
     return player_id;
 

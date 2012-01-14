@@ -17,6 +17,6 @@ struct player_bullet {
     
 };
 
-int add_player(int x, int y);
+int player_add();
 void remove_player(int player_id);
 void player_shoot(int player_id);
