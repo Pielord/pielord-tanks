@@ -94,8 +94,5 @@ int main(void) {
 	endwin();			/* End curses mode		  */
     
     return (0);
-=======
-    
-    return 0;
->>>>>>> 3842aa7db8375180913a0587a6c001b14c72ca04
+
 }
