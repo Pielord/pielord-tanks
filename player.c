@@ -12,7 +12,7 @@ static int player_bullet_count;
  * @param y
  * @return int
  */
-int add_player(int x, int y) {
+int player_add(int x, int y) {
 
     player_count++;
 
