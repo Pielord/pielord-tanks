@@ -3,11 +3,11 @@ static int player_count = 0;
 
 /**
  * Create new player.
- * @param id
  * @param x
  * @param y
+ * @return int
  */
-void add_player(int id, int x, int y) {
+int add_player(int x, int y) {
     
     all_players++;
     
@@ -15,9 +15,14 @@ void add_player(int id, int x, int y) {
     all_players = realloc (all_players, sizeof(struct player) * player_count);
     
     
+    // players id.
+    int player_id = all_players-1;
+    
     // set player x,y coords
-    all_players[all_players-1]->x = (float) x;
-    all_players[all_players-1]->y = (float) y;
+    all_players[player_id]->x = (float) x;
+    all_players[player_id]->y = (float) y;
+    
+    return player_id;
     
 }
 
