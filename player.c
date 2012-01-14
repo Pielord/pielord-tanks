@@ -43,6 +43,15 @@ void player_draw() {
 }
 
 /**
+ * Player moves somewhere
+ * @param player_id
+ * @param direction
+ */
+void player_move(int player_id, char direction) {
+    
+}
+
+/**
  * Remove player from player array by his id
  * @param player_id
  */
