@@ -33,8 +33,8 @@ void player_init_players(int player_count) {
 
 }
 
-void player_draw(something * map, struct player * p) {
-
+void player_draw() {
+    
 }
 
 /**
