@@ -7,3 +7,5 @@ struct player {
     char dir;
 };
 
+int add_player(int x, int y);
+void remove_player(int player_id);
