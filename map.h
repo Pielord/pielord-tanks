@@ -14,3 +14,7 @@ struct tank_map {
     struct tank_map *next;
     struct tank_map *prev;
 }typedef tank_map;
+
+typedef struct _map_border_struct {
+	char wall;
+}MAP_BORDER;
