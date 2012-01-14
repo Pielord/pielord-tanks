@@ -4,11 +4,11 @@
 #include <string.h>
 #include "map.h"
 
-struct tank_map * game_map;
+tank_map * game_map;
 
 void map_init(int map_size_x, int map_size_y)
 {
-    game_map = malloc(sizeof(struct tank_map));
+    game_map = malloc(sizeof(tank_map));
     strcpy(game_map->data, "First Map");
     game_map->mapId = 1;
     game_map->maxPlayers = 2;
@@ -18,7 +18,7 @@ void map_init(int map_size_x, int map_size_y)
     game_map->prev = NULL;
 
 }
-void create_map(struct tank_map * m){
+void create_map(tank_map * m){
 	int x, y, w, h;
 
 	x = 0;
