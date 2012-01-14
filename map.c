@@ -2,11 +2,18 @@
 #include <curses.h>
 #include <stdlib.h>
 
-struct map * game_map;
+struct tank_map * game_map;
 
 void map_init(int map_size_x, int map_size_y)
 {
     game_map = malloc(sizeof(struct map));
+    strcpy(game_map->data, "First Map");
+    game_map->mapId = 1;
+    game_map->maxPlayers = 2;
+    game_map->size_x = 10;
+    game_map->size_y = 10;
+    game_map->next = NULL;
+    game_map->prev = NULL;
 }
 
 void map_draw(struct map * m)
