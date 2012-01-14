@@ -1,8 +1,8 @@
 #include <curses.h>
 #include <stdlib.h>
 
-#define MAP_HEIGHT 20
-#define MAP_WIDTH 40
+#define MAP_HEIGHT 28
+#define MAP_WIDTH 80
 
 // tanka struktūra
 typedef struct _tank_border_struct {
@@ -12,8 +12,7 @@ typedef struct _tank_border_struct {
 
 // kartes laukuma rāmis
 typedef struct _map_border_struct {
-	chtype 	ls, rs, ts, bs, 
-	 	tl, tr, bl, br;
+	chtype 	top, side;
 }MAP_BORDER;
 
 typedef struct _map_struct {
@@ -145,14 +144,8 @@ void init_map_params(MAP *p_map)
 	p_map->starty = (LINES - MAP_HEIGHT)-1;
 	p_map->startx = (COLS - MAP_WIDTH)/2;
 
-	p_map->border.ls = 'N';
-	p_map->border.rs = 'N';
-	p_map->border.ts = 'N';
-	p_map->border.bs = 'N';
-	p_map->border.tl = 'N';
-	p_map->border.tr = 'N';
-	p_map->border.bl = 'N';
-	p_map->border.br = 'N';
+	p_map->border.top = '-';
+	p_map->border.side = '|';
 }
 void print_map_params(MAP *p_map)
 {
@@ -172,14 +165,10 @@ void create_map(MAP *p_map, bool flag)
 	h = p_map->height;
 
 	if(flag == TRUE)
-	{	mvaddch(y, x, p_map->border.tl); // augša kreisā
-		mvaddch(y, x + w, p_map->border.tr); // augša labā
-		mvaddch(y + h, x, p_map->border.bl); // kreisā apakša
-		mvaddch(y + h, x + w, p_map->border.br); // labā apakša
-		mvhline(y, x + 1, p_map->border.ts, w - 1); // augša
-		mvhline(y + h, x + 1, p_map->border.bs, w - 1); // apakša
-		mvvline(y + 1, x, p_map->border.ls, h - 1); // kreisā puse
-		mvvline(y + 1, x + w, p_map->border.rs, h - 1); // labā puse
+		mvhline(y, x, p_map->border.top, w); // augša
+		mvhline(y + h, x, p_map->border.top, w); // apakša
+		mvvline(y, x, p_map->border.side, h); // kreisā puse
+		mvvline(y, x + w, p_map->border.side, h); // labā puse
 
 	}
 	else
