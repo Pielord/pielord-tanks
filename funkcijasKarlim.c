@@ -1,28 +1,8 @@
-/*
-x - kartes platums 80 (-2)
-y - kartes augstums 24 (-2)
-size - masīva lielums
-data[] - masīvs ar simboliem
-*/
-
-#define MAP_HEIGHT 23
-#define MAP_WIDTH 79
-
-// kartes laukuma rāmis
-typedef struct _map_border_struct {
-	chtype 	top, side;
-}MAP_BORDER;
-
-typedef struct _map_struct {
-
-	int startx, starty;
-	int height, width;
-	MAP_BORDER border;
-}MAP;
+#include "map.h"
 
 void init_map_params(MAP *p_map);
 void print_map_params(MAP *p_map);
-void create_map(MAP *map, bool flag);
+void create_map(MAP *map, int flag);
 
 void init_map_params(MAP *p_map)
 {
@@ -42,7 +22,7 @@ void print_map_params(MAP *p_map)
 	refresh();
 #endif
 }
-void create_map(MAP *p_map, bool flag)
+void create_map(MAP *p_map, int flag)
 {	int i, j;
 	int x, y, w, h;
 
@@ -51,7 +31,7 @@ void create_map(MAP *p_map, bool flag)
 	w = p_map->width;
 	h = p_map->height;
 
-	if(flag == TRUE){
+	if(flag == 1){
 		mvhline(y, x, p_map->border.top, w-1); // augša
 		mvhline(y + h, x, p_map->border.top, w-1); // apakša
 		mvvline(y+1, x, p_map->border.side, h-1); // kreisā puse
