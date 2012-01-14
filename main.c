@@ -14,7 +14,7 @@
 
 
 int main(void) {
-<<<<<<< HEAD
+
 	
 	pid_t pid;
 	           
