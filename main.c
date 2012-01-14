@@ -3,7 +3,7 @@
 
 #include <ncurses.h>
 
-#include "tank.h"
+#include "player.h"
 #include "map.h"
 
 int main(void) {
