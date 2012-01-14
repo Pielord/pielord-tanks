@@ -5,6 +5,5 @@ struct player {
     float y;
     
     char dir;
-}
-
+};
 
