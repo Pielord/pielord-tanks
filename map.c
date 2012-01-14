@@ -1,6 +1,7 @@
-#include "map.h"
-#include <curses.h>
 #include <stdlib.h>
+#include <stdio.h>
+
+#include "map.h"
 
 struct map * game_map;
 
@@ -14,7 +15,7 @@ void map_draw(struct map * m)
     int i, j;
     for (i=0; i < m->size_x; i++) {
         for (j=0; j < m->size_y; j++) {
-            printf(MAP_WALL);
+            printf("aaa\n");
             /*
             switch(m[i]) {
                 case MAP_WALL:

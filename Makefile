@@ -1,2 +1,2 @@
 all: map.c
-	gcc -Wall map.c -o map_test -ggdb -lncurses
+	gcc -Wall main.c map.c -o tank -ggdb -lncurses
