@@ -1,3 +1,4 @@
+#include <string.h>
 /*
 x - kartes platums 80 (-2)
 y - kartes augstums 24 (-2)
