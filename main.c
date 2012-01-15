@@ -5,7 +5,7 @@
 
 #include <unistd.h>
 
-#include <ncurses.h>
+#include <curses.h>
 
 
 #include "funkcijasKarlim.c"
@@ -49,7 +49,7 @@ int main(void) {
         ch = getch();
 
 
-        switch (ch) {   
+        switch (ch) {
             case KEY_LEFT:
                 //call function 
                 player_move(player1, '<', game_map);
@@ -67,6 +67,11 @@ int main(void) {
                 break;
             case KEY_UP:
                 //call function 
+                player_move(player1, '^', game_map);
+                player_draw(game_map);
+                break;
+            case 32:
+                //space key  
                 player_move(player1, '^', game_map);
                 player_draw(game_map);
                 break;
