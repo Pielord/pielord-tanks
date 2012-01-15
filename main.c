@@ -1,96 +1,84 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+//#include <conio.h>
 
-#include <sys/types.h>
 #include <unistd.h>
 
-#include <curses.h>
+#include <ncurses.h>
 
-//#include "player.h"
-//#include "map.h"
-#include "funkcijasKarlim.c"
+#include "player.h"
+#include "map.h"
+//#include "funkcijasKarlim.c"
 
 
 
 int main(void) {
 	
-	pid_t pid;
-	           
-//	int ch;
+		int ch = 0;
+		initscr();    // Start curses mode
 	
-	initscr();    // Start curses mode
-	cbreak();		        // Line buffering disabled
-	keypad(stdscr, TRUE);
-	noecho(); 
-
-	
-	
-	
-	
-	    /* Attempt to fork and check for errors */
-	   
-    if( (pid=fork()) == -1){
-        fprintf(stderr,"Fork error. Exiting.\n");  // something went wrong 
-        exit(1);
-    }
-	
-	
-	
-	if(fork())
-	{
-	
-		//pareant
+		cbreak();		        // Line buffering disabled
+		keypad(stdscr, TRUE);
+		nodelay(stdscr,TRUE);
+		noecho();
 		
-		while(1)
-		{
-			//get_status();
-			//fill_map();
-		}
-		
-		//mvaddch(20, 20,'2');
-		
-		
-   		//exit(1);
-		//getch();	
-		//exit(1);
-    
-    }
-    else
-    {
-    	//child
-    	/*
-    	while((ch = getch()) != 113) //reads key's
-		{	
-			switch(ch)
-			{	
-				case KEY_LEFT:
-					//call function 
-					break;
-				case KEY_RIGHT:
-					//call function 
-					break;
-				case KEY_DOWN:
-					//call function 
-					break;
-				case KEY_UP:
-				//call function 
-					break;
+		//Nezinu kadaa martinsh shito kompileeja :/
+		 
+	/*
+        // creates map
+        MAP * game_map;
+        game_map = malloc(sizeof(MAP));
+        init_map_params(game_map);
+        
+        // draws map border
+        create_map(game_map,1);
+        
+        // creates demo player
+        int player1 = player_add();
+        
+        // draws map with this player
+        player_draw(game_map);
+        getchar();
+    	*/    
+	
+			
+			while(ch != 113)
+			{
+			
+				
+					ch = getch();
+				
+					
+					switch(ch)
+					{	
+						case KEY_LEFT:
+							//call function 
+								mvaddch(20, 20,'2');
+							break;
+						case KEY_RIGHT:
+							//call function 
+								mvaddch(20, 20,'2');
+							break;
+						case KEY_DOWN:
+							//call function 
+								//player_move(player1, '>');
+       							//player_draw(game_map);
+							break;
+						case KEY_UP:
+							//call function 
+								mvaddch(20, 20,'2');
+							break;
+					}
+				
+				
 			}
-		}
-		*/
-		
 	
-		
-		
-    	//refresh();			/* Print it on to the real screen */
-		//getch();			/* Wait for user input */
-		//endwin();			/* End curses mode		  */
-    	//exit(1);
-	}
 	
 	refresh();			/* Print it on to the real screen */
+	
 	endwin();			/* End curses mode		  */
-    
-    return (0);
+
+	return 0;
+
 }
