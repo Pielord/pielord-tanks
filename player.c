@@ -90,7 +90,7 @@ void player_draw(MAP *map_p) {
  */
 void player_move(int player_id, char direction, MAP *map_p) {
     
-    // only move bullet if time has come
+    // only move player if time has come
     double now = get_time();
     
     double player_movement = 1.0/PLAYER_MOVEMENT_FPS;
