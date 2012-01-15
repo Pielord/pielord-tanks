@@ -16,6 +16,9 @@ struct player_bullet {
     
 };
 
+#define PLAYER_BULLET '*'
+
+
 int player_add();
 void remove_player(int player_id);
 void player_shoot(int player_id, MAP *map_p);
