@@ -13,11 +13,14 @@ struct player_bullet {
     float x;
     float y;
     char direction;
+    double last_time_moved;
     
 };
 
 #define PLAYER_BULLET '*'
 
+// define how fast bullet will move
+#define PLAYER_BULLET_FPS 16
 
 int player_add();
 void remove_player(int player_id);

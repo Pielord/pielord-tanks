@@ -165,10 +165,25 @@ void player_shoot(int player_id, MAP *map_p) {
     player_all_bullets[bullet_id].direction = all_players[player_id].direction;
     player_all_bullets[bullet_id].x = all_players[player_id].x;
     player_all_bullets[bullet_id].y = all_players[player_id].y;
+    player_all_bullets[bullet_id].last_time_moved = get_time();
+
 }
 
 void player_bullet_move(int bullet_id, MAP *map_p) {
 
+    // only move bullet if time has come
+    double now = get_time();
+    
+    double bullet_movement = 1.0/PLAYER_BULLET_FPS;
+    if(player_all_bullets[bullet_id].last_time_moved + bullet_movement > now) {
+        return;
+    }
+    else {
+        player_all_bullets[bullet_id].last_time_moved = now;
+    }
+    
+    
+    
     // move player
     switch (player_all_bullets[bullet_id].direction) {
 
@@ -209,6 +224,6 @@ double get_time(void) {
     double now;
     now = tv.tv_sec;
     now += (double) tv.tv_usec / 1000000.0;
-    
+
     return now;
 }
