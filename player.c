@@ -7,13 +7,13 @@
 #include <event2/bufferevent.h>
 #include <event2/buffer.h>
  */
+// player container
 static player * all_players;
 static int player_count = 0;
 
-/*
+// bullet container
 static struct player_bullet * player_all_bullets;
 static int player_bullet_count;
- */
 
 /**
  * Create new player.
@@ -139,9 +139,8 @@ void player_remove(int player_id) {
  * create new bullet
  * @param player_id
  */
-/*
-void player_shoot(int player_id) {
-    
+void player_shoot(int player_id, MAP *map_p) {
+
     player_bullet_count++;
 
     // add place for player in memory
@@ -152,8 +151,7 @@ void player_shoot(int player_id) {
     int bullet_id = player_bullet_count - 1;
 
     // set bullet coords, direction
-    player_all_bullets[bullet_id]->direction = all_players[player_id]->direction;
-    player_all_bullets[bullet_id]->x = all_players[player_id]->x;
-    player_all_bullets[bullet_id]->y = all_players[player_id]->y;
+    player_all_bullets[bullet_id].direction = all_players[player_id].direction;
+    player_all_bullets[bullet_id].x = all_players[player_id].x;
+    player_all_bullets[bullet_id].y = all_players[player_id].y;
 }
- */

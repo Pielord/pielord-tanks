@@ -72,7 +72,7 @@ int main(void) {
                 break;
             case 32:
                 //space key  
-                player_move(player1, '^', game_map);
+                player_shoot(player1, game_map);
                 player_draw(game_map);
                 break;
         }
