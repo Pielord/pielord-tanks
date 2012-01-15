@@ -40,6 +40,8 @@ int player_add() {
     all_players[player_id].y = (float) 1;
     all_players[player_id].direction = '>';
     all_players[player_id].last_time_moved = 0.0;
+    all_players[player_id].alive = 1;
+    
 
     return player_id;
 
@@ -173,6 +175,7 @@ void player_shoot(int player_id, MAP *map_p) {
     // players id.
     int bullet_id = player_bullet_count - 1;
 
+    // @TODO put bullet 1 field ahed player
     // set bullet coords, direction
     player_all_bullets[bullet_id].direction = all_players[player_id].direction;
     player_all_bullets[bullet_id].x = all_players[player_id].x;
@@ -225,7 +228,29 @@ void player_bullet_move(int bullet_id, MAP *map_p) {
 
             break;
     }
+    
+    // check whether some player died
+    check_bullet_colisions(bullet_id);
 
+}
+
+/**
+ * Check whether a bullet has killed a player
+ * @param bullet_id
+ */
+void check_bullet_colisions(int bullet_id) {
+    
+    // @TODO check collisions after player movement
+    
+    int i;
+    
+    for (i = 0; i < player_count; i++) {
+
+        if(all_players[i].x == player_all_bullets[bullet_id].x 
+                && all_players[i].y == player_all_bullets[bullet_id].y) {
+            all_players[i].alive = 0;
+        }
+    }
 }
 
 /**

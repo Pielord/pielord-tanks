@@ -7,6 +7,9 @@ typedef struct {
     
     double last_time_moved;
     
+    // player is alive
+    int alive;
+    
 } player;
 
 
