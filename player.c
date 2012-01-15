@@ -1,6 +1,9 @@
 #include <string.h>
 #include <unistd.h>
 
+#include <sys/time.h>
+#include <time.h>
+
 /*
 #include <event2/event.h>
 #include <event2/listener.h>
@@ -192,4 +195,20 @@ void player_bullet_move(int bullet_id, MAP *map_p) {
             break;
     }
 
+}
+
+/**
+ * Returns system time
+ * @return double
+ */
+double get_time(void) {
+
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+
+    double now;
+    now = tv.tv_sec;
+    now += (double) tv.tv_usec / 1000000.0;
+    
+    return now;
 }
