@@ -4,33 +4,67 @@
 #include <string.h>
 #include "map.h"
 
-tank_map * game_map;
+void init_map_params(MAP *p_map);
+void print_map_params(MAP *p_map);
+void create_map(MAP *map, int flag);
 
-void map_init(int map_size_x, int map_size_y)
+
+void init_map_params(MAP *p_map)
 {
-    game_map = malloc(sizeof(tank_map));
-    strcpy(game_map->data, "First Map");
-    game_map->mapId = 1;
-    game_map->maxPlayers = 2;
-    game_map->size_x = map_size_x;
-    game_map->size_y = map_size_y;
-    game_map->next = NULL;
-    game_map->prev = NULL;
+	p_map->height = MAP_HEIGHT;
+	p_map->width = MAP_WIDTH;
+	p_map->starty = 0;
+	p_map->startx = 0;
 
+	p_map->border.top = '-';
+	p_map->border.side = '|';
 }
-void create_map(tank_map * m){
+void print_map_params(MAP *p_map)
+{
+#ifdef _DEBUG
+	mvprintw(25, 0, "%d %d %d %d", p_map->startx, p_map->starty, 
+				p_map->width, p_map->height);
+	refresh();
+#endif
+}
+void create_map(MAP *p_map, int flag)
+{	int i, j;
 	int x, y, w, h;
 
-	x = 0;
-	y = 0;
-	w = game_map->size_x;
-	h = game_map->size_x;
+	x = p_map->startx;
+	y = p_map->starty;
+	w = p_map->width;
+	h = p_map->height;
 
-		mvhline(y, x, '+', w); // augša
-		mvhline(y + h, x, '+', w); // apakša
-		mvvline(y, x, '+', h); // kreisā puse
-		mvvline(y, x + w, '+', h); // labā puse
+	if(flag == 1){
+		mvhline(y, x, p_map->border.top, w-1); // augša
+		mvhline(y + h, x, p_map->border.top, w-1); // apakša
+		mvvline(y+1, x, p_map->border.side, h-1); // kreisā puse
+		mvvline(y+1, x + w, p_map->border.side, h-1); // labā puse
 
+	}
+	else
+		for(j = y; j <= y + h; ++j)
+			for(i = x; i <= x + w; ++i)
+				mvaddch(j, i, ' ');
+				
 	refresh();
 
+}
+
+void fill_map(int x, int y, int size, char mas[]){
+    int i, j=0;
+    int xx = x-1, yy = 1;
+    for (i = 1; i < size; i++){
+        j++;
+        if(j < xx){
+            mvaddch(yy, j, mas[i]);
+        }else{
+            j = 1;
+            if(yy < y){
+                yy++;
+                mvaddch(yy, j, mas[i]);
+            }
+        }
+    }
 }

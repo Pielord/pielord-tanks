@@ -5,6 +5,11 @@
 #define TANK_LEFT 608	// <
 #define TANK_RIGHT 628	// >
 
+
+#define MAP_HEIGHT 23
+#define MAP_WIDTH 79
+
+/*
 typedef struct {
     char * data;
     int mapId;
@@ -14,26 +19,7 @@ typedef struct {
     struct tank_map *next;
     struct tank_map *prev;
 } tank_map;
-
-//enum map_tile {
-//    WALL,
-//    TANK_UP,
-//    TANK_DOWN,
-//    TANK_LEFT,
-//    TANK_RIGHT
-//};
-
-
-/*
-x - kartes platums 80 (-2)
-y - kartes augstums 24 (-2)
-size - masīva lielums
-data[] - masīvs ar simboliem
 */
-
-#define MAP_HEIGHT 23
-#define MAP_WIDTH 79
-
 // kartes laukuma rāmis
 typedef struct _map_border_struct {
 	chtype 	top, side;
@@ -46,9 +32,12 @@ typedef struct _map_struct {
 	MAP_BORDER border;
 } MAP;
 
-void map_init(int map_size_x, int map_size_y);
-void create_map(tank_map *p_map);
-//void map_set(int x, int y, enum map_tile);
+void init_map_params(MAP *p_map);
+void create_map(MAP *p_map, int flag);
 void fill_map(int x, int y, int size, char mas[]);
-void map_draw(MAP * m);
-void map_free(void);
+void print_map_params(MAP *p_map);
+//void map_init(int map_size_x, int map_size_y);
+//void create_map(tank_map *p_map);
+//void map_set(int x, int y, enum map_tile);
+//void map_draw(MAP * m);
+//void map_free(void);
