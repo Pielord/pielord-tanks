@@ -69,7 +69,7 @@ void player_draw(MAP *map_p) {
 
         int player_position = all_players[i].y * map_p->width + all_players[i].x;
 
-        map_p->map_canvas->map_grid[player_position] = all_players[i].direction;
+        map_p->map_canvas.map_grid[player_position] = all_players[i].direction;
     }
 
     // draw bullets
@@ -77,7 +77,7 @@ void player_draw(MAP *map_p) {
 
         int bullet_position = player_all_bullets[i].y * map_p->width + player_all_bullets[i].x;
 
-        map_p->map_canvas->map_grid[bullet_position] = PLAYER_BULLET;
+        map_p->map_canvas.map_grid[bullet_position] = PLAYER_BULLET;
     }
 
     // draw map

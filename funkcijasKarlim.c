@@ -23,7 +23,8 @@ typedef struct _map_struct {
     int startx, starty;
     int height, width;
     MAP_BORDER border;
-    map_canvas * map_canvas;
+    map_canvas map_canvas;
+    map_canvas original_map;
 } MAP;
 
 void init_map_params(MAP *p_map);
@@ -39,13 +40,10 @@ void init_map_params(MAP *p_map) {
     p_map->border.top = '-';
     p_map->border.side = '|';
 
-    // alloc memory for map canvas
-    p_map->map_canvas = malloc(sizeof (map_canvas));
-
     int map_size = sizeof (char) * p_map->height * p_map->width;
-    p_map->map_canvas->map_grid = malloc(sizeof (char) *map_size+1);
+    p_map->map_canvas.map_grid = malloc(sizeof (char) *map_size+1);
     
-    memset(p_map->map_canvas->map_grid, ' ', map_size);
+    memset(p_map->map_canvas.map_grid, ' ', map_size);
 }
 
 void print_map_params(MAP *p_map) {
@@ -86,7 +84,7 @@ void draw_map(MAP *p_map) {
 
     for (x = 0; x < p_map->width; x++) {
         for (y = 0; y < p_map->height; y++) {
-            mvaddch(y, x, p_map->map_canvas->map_grid[y * p_map->width + x]);
+            mvaddch(y, x, p_map->map_canvas.map_grid[y * p_map->width + x]);
         }
     }
     refresh();

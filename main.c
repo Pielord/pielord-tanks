@@ -75,7 +75,7 @@ int main(void) {
         // animate all bullets.
         player_animate_bullets(game_map);
 
-
+        
         // draw map for the player
         player_draw(game_map);
 
