@@ -155,3 +155,33 @@ void player_shoot(int player_id, MAP *map_p) {
     player_all_bullets[bullet_id].x = all_players[player_id].x;
     player_all_bullets[bullet_id].y = all_players[player_id].y;
 }
+
+void player_bullet_move(int bullet_id, MAP *map_p) {
+
+    // move player
+    switch (player_all_bullets[bullet_id].direction) {
+
+        case '>':
+            if (map_p->width > player_all_bullets[bullet_id].x + 1) {
+                player_all_bullets[bullet_id].x++;
+            }
+            break;
+        case '<':
+            if (player_all_bullets[bullet_id].x - 1 > 0) {
+                player_all_bullets[bullet_id].x--;
+            }
+            break;
+        case '^':
+            if (player_all_bullets[bullet_id].y - 1 > 0) {
+                player_all_bullets[bullet_id].y--;
+            }
+            break;
+        case 'v':
+            if (map_p->height > player_all_bullets[bullet_id].y + 1) {
+                player_all_bullets[bullet_id].y++;
+            }
+
+            break;
+    }
+
+}
