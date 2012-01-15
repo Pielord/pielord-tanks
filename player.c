@@ -61,7 +61,10 @@ void player_init_players(int player_count) {
  * @param map_p
  */
 void player_draw(MAP *map_p) {
-
+    
+    // clear map before drawing
+    clear_map(map_p);
+    
     int i;
 
     // draw players

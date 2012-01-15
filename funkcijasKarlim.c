@@ -50,6 +50,15 @@ void init_map_params(MAP *p_map) {
     memcpy(p_map->original_map.map_grid, p_map->map_canvas.map_grid, map_size);
 }
 
+/**
+ * Clear map so you can draw on it
+ */
+void clear_map(MAP *p_map) {
+    
+    int map_size = sizeof (char) * p_map->height * p_map->width;
+    memcpy(p_map->map_canvas.map_grid, p_map->original_map.map_grid, map_size);
+}
+
 void print_map_params(MAP *p_map) {
 #ifdef _DEBUG
     mvprintw(25, 0, "%d %d %d %d", p_map->startx, p_map->starty,
