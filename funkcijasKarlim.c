@@ -43,8 +43,6 @@ void init_map_params(MAP *p_map) {
 
     int map_size = sizeof (char) * p_map->height * p_map->width;
     p_map->map_canvas->map_grid = malloc(sizeof (char) *map_size+1);
-    strcpy(p_map->map_canvas->map_grid,"asdasdaaaaaa");
-    
     
     memset(p_map->map_canvas->map_grid, ' ', map_size);
 }
