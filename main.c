@@ -72,13 +72,9 @@ int main(void) {
                 break;
         }
 
-        // animate all bullets. this should be done async with libevent
-        int i;
-        for (i = 0; i < player_bullet_count; i++) {
+        // animate all bullets.
+        player_animate_bullets(game_map);
 
-            player_bullet_move(i, game_map);
-
-        }
 
         // draw map for the player
         player_draw(game_map);

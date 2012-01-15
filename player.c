@@ -89,19 +89,18 @@ void player_draw(MAP *map_p) {
  * @param direction
  */
 void player_move(int player_id, char direction, MAP *map_p) {
-    
+
     // only move player if time has come
     double now = get_time();
-    
-    double player_movement = 1.0/PLAYER_MOVEMENT_FPS;
-    if(all_players[player_id].last_time_moved + player_movement > now) {
+
+    double player_movement = 1.0 / PLAYER_MOVEMENT_FPS;
+    if (all_players[player_id].last_time_moved + player_movement > now) {
         return;
-    }
-    else {
+    } else {
         all_players[player_id].last_time_moved = now;
     }
-    
-    
+
+
     // set player direction
     all_players[player_id].direction = direction;
 
@@ -182,21 +181,25 @@ void player_shoot(int player_id, MAP *map_p) {
 
 }
 
+/**
+ * Animate one bullet
+ * @param bullet_id
+ * @param map_p
+ */
 void player_bullet_move(int bullet_id, MAP *map_p) {
 
     // only move bullet if time has come
     double now = get_time();
-    
-    double bullet_movement = 1.0/PLAYER_BULLET_FPS;
-    if(player_all_bullets[bullet_id].last_time_moved + bullet_movement > now) {
+
+    double bullet_movement = 1.0 / PLAYER_BULLET_FPS;
+    if (player_all_bullets[bullet_id].last_time_moved + bullet_movement > now) {
         return;
-    }
-    else {
+    } else {
         player_all_bullets[bullet_id].last_time_moved = now;
     }
-    
-    
-    
+
+
+
     // move player
     switch (player_all_bullets[bullet_id].direction) {
 
@@ -223,6 +226,20 @@ void player_bullet_move(int bullet_id, MAP *map_p) {
             break;
     }
 
+}
+
+/**
+ * Animate all bullets
+ * @return 
+ */
+void player_animate_bullets(MAP *map_p) {
+    
+    int i;
+    for (i = 0; i < player_bullet_count; i++) {
+
+        player_bullet_move(i, map_p);
+
+    }
 }
 
 /**
