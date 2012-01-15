@@ -4,6 +4,9 @@ typedef struct {
     float y;
     
     char direction;
+    
+    double last_time_moved;
+    
 } player;
 
 
@@ -20,7 +23,8 @@ struct player_bullet {
 #define PLAYER_BULLET '*'
 
 // define how fast bullet will move
-#define PLAYER_BULLET_FPS 16
+#define PLAYER_BULLET_FPS 32
+#define PLAYER_MOVEMENT_FPS 16
 
 int player_add();
 void remove_player(int player_id);

@@ -39,6 +39,7 @@ int player_add() {
     all_players[player_id].x = (float) 1;
     all_players[player_id].y = (float) 1;
     all_players[player_id].direction = '>';
+    all_players[player_id].last_time_moved = 0.0;
 
     return player_id;
 
@@ -88,7 +89,19 @@ void player_draw(MAP *map_p) {
  * @param direction
  */
 void player_move(int player_id, char direction, MAP *map_p) {
-
+    
+    // only move bullet if time has come
+    double now = get_time();
+    
+    double player_movement = 1.0/PLAYER_MOVEMENT_FPS;
+    if(all_players[player_id].last_time_moved + player_movement > now) {
+        return;
+    }
+    else {
+        all_players[player_id].last_time_moved = now;
+    }
+    
+    
     // set player direction
     all_players[player_id].direction = direction;
 
