@@ -56,20 +56,23 @@ int main(void) {
 					{	
 						case KEY_LEFT:
 							//call function 
-								mvaddch(20, 20,'2');
+							player_move(player1, '<');
+       							player_draw(game_map);
 							break;
 						case KEY_RIGHT:
-							//call function 
-								mvaddch(20, 20,'2');
-							break;
-						case KEY_DOWN:
 							//call function 
 							player_move(player1, '>');
        							player_draw(game_map);
 							break;
+						case KEY_DOWN:
+							//call function 
+							player_move(player1, 'v');
+       							player_draw(game_map);
+							break;
 						case KEY_UP:
 							//call function 
-								mvaddch(20, 20,'2');
+							player_move(player1, '^');
+       							player_draw(game_map);
 							break;
 					}
 				
