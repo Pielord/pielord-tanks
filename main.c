@@ -7,9 +7,11 @@
 
 #include <ncurses.h>
 
+
+#include "funkcijasKarlim.c"
 #include "player.h"
-#include "map.h"
-//#include "funkcijasKarlim.c"
+#include "player.c"
+//
 
 
 
@@ -25,7 +27,7 @@ int main(void) {
 		
 		//Nezinu kadaa martinsh shito kompileeja :/
 		 
-	/*
+	
         // creates map
         MAP * game_map;
         game_map = malloc(sizeof(MAP));
@@ -40,7 +42,7 @@ int main(void) {
         // draws map with this player
         player_draw(game_map);
         getchar();
-    	*/    
+       
 	
 			
 			while(ch != 113)
@@ -62,8 +64,8 @@ int main(void) {
 							break;
 						case KEY_DOWN:
 							//call function 
-								//player_move(player1, '>');
-       							//player_draw(game_map);
+							player_move(player1, '>');
+       							player_draw(game_map);
 							break;
 						case KEY_UP:
 							//call function 
