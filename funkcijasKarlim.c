@@ -40,10 +40,14 @@ void init_map_params(MAP *p_map) {
     p_map->border.top = '-';
     p_map->border.side = '|';
 
+    // create and fill map
     int map_size = sizeof (char) * p_map->height * p_map->width;
-    p_map->map_canvas.map_grid = malloc(sizeof (char) *map_size+1);
-    
+    p_map->map_canvas.map_grid = malloc(sizeof (char) *map_size + 1);
     memset(p_map->map_canvas.map_grid, ' ', map_size);
+    
+    // clone map
+    p_map->original_map.map_grid = malloc(sizeof (char) *map_size + 1);
+    memcpy(p_map->original_map.map_grid, p_map->map_canvas.map_grid, map_size);
 }
 
 void print_map_params(MAP *p_map) {
