@@ -119,6 +119,9 @@ void player_move(int player_id, char direction, MAP *map_p) {
     } else {
         all_players[player_id].last_time_moved = now;
     }
+    
+    int old_x = all_players[player_id].x;
+    int old_y = all_players[player_id].y;
 
     // move player
     switch (direction) {
@@ -148,6 +151,12 @@ void player_move(int player_id, char direction, MAP *map_p) {
             }
 
             break;
+    }
+    
+    // check whether player can move here
+    if(get_map_element(map_p, all_players[player_id].x, all_players[player_id].y) !=' ') {
+        all_players[player_id].x = old_x;
+        all_players[player_id].y = old_y;
     }
     
     // set player direction

@@ -33,4 +33,5 @@ void print_map_params(MAP *p_map);
 void create_map(MAP *map, bool flag);
 void clear_map(MAP *p_map);
 void draw_map(MAP *p_map);
+char get_map_element(MAP *map_p, int x, int y);
 
