@@ -26,6 +26,8 @@ static int player_bullet_count;
  */
 int player_add() {
 
+    // @TODO put on a random location
+    
     player_count++;
 
     // add place for player in memory
@@ -105,35 +107,38 @@ void player_move(int player_id, char direction, MAP *map_p) {
         all_players[player_id].last_time_moved = now;
     }
 
-
-    // set player direction
-    all_players[player_id].direction = direction;
-
     // move player
     switch (direction) {
 
         case '>':
-            if (map_p->width > all_players[player_id].x + 1) {
+            if (map_p->width > all_players[player_id].x + 1 
+                    && direction==all_players[player_id].direction) {
                 all_players[player_id].x++;
             }
             break;
         case '<':
-            if (all_players[player_id].x - 1 > 0) {
+            if (all_players[player_id].x - 1 >= 0
+                    && direction==all_players[player_id].direction) {
                 all_players[player_id].x--;
             }
             break;
         case '^':
-            if (all_players[player_id].y - 1 > 0) {
+            if (all_players[player_id].y - 1 >= 0
+                    && direction==all_players[player_id].direction) {
                 all_players[player_id].y--;
             }
             break;
         case 'v':
-            if (map_p->height > all_players[player_id].y + 1) {
+            if (map_p->height > all_players[player_id].y + 1
+                    && direction==all_players[player_id].direction) {
                 all_players[player_id].y++;
             }
 
             break;
     }
+    
+    // set player direction
+    all_players[player_id].direction = direction;
 }
 
 void player_redraw_location_on_map(int player_id) {
@@ -144,7 +149,6 @@ void player_redraw_location_on_map(int player_id) {
  * Remove player from player array by his id
  * @param player_id
  */
-/*
 void player_remove(int player_id) {
 
     int i;
@@ -152,16 +156,28 @@ void player_remove(int player_id) {
     // copy players one place up
     for (i = 0; i < player_count; i++) {
         if (i > player_id) {
-            memcpy(all_players[i - 1], all_players[i], sizeof(player));
+            memcpy(&all_players[i - 1], &all_players[i], sizeof(player));
             //all_players[i - 1] = all_players[i];
         }
     }
 
     player_count--;
 
-    all_players = realloc(all_players, sizeof (player) * player_count);
+    //all_players = realloc(all_players, sizeof (player) * player_count);
 
-}*/
+}
+
+/**
+ * Returns whether a player is alive
+ * @param player_id
+ * @return 
+ */
+int player_is_alive(int player_id) {
+    
+    return all_players[player_id].alive;
+    
+}
+
 
 /**
  * create new bullet
@@ -169,6 +185,17 @@ void player_remove(int player_id) {
  */
 void player_shoot(int player_id, MAP *map_p) {
 
+    // limit bullet shooting
+    double now = get_time();
+
+    double player_movement = 1.0 / PLAYER_BULLET_SHOOT_FPS;
+    if (all_players[player_id].last_time_shot + player_movement > now) {
+        return;
+    } else {
+        all_players[player_id].last_time_shot = now;
+    }
+    
+    
     player_bullet_count++;
 
     // add place for player in memory
@@ -213,20 +240,32 @@ void player_bullet_move(int bullet_id, MAP *map_p) {
             if (map_p->width > player_all_bullets[bullet_id].x + 1) {
                 player_all_bullets[bullet_id].x++;
             }
+            else {
+                player_bullet_remove(bullet_id);
+            }
             break;
         case '<':
-            if (player_all_bullets[bullet_id].x - 1 > 0) {
+            if (player_all_bullets[bullet_id].x - 1 >= 0) {
                 player_all_bullets[bullet_id].x--;
+            }
+            else {
+                player_bullet_remove(bullet_id);
             }
             break;
         case '^':
-            if (player_all_bullets[bullet_id].y - 1 > 0) {
+            if (player_all_bullets[bullet_id].y - 1 >= 0) {
                 player_all_bullets[bullet_id].y--;
+            }
+            else {
+                player_bullet_remove(bullet_id);
             }
             break;
         case 'v':
             if (map_p->height > player_all_bullets[bullet_id].y + 1) {
                 player_all_bullets[bullet_id].y++;
+            }
+            else {
+                player_bullet_remove(bullet_id);
             }
 
             break;
@@ -235,6 +274,27 @@ void player_bullet_move(int bullet_id, MAP *map_p) {
     // check whether some player died
     check_bullet_colisions(bullet_id);
 
+}
+
+/**
+ * Remove bullet from the map
+ * @param billet_id
+ */
+void player_bullet_remove(int bullet_id) {
+    
+    int i;
+
+    // copy players one place up
+    for (i = 0; i < player_bullet_count; i++) {
+        if (i > bullet_id) {
+            memcpy(&player_all_bullets[i - 1], &player_all_bullets[i], sizeof(struct player_bullet));
+            //all_players[i - 1] = all_players[i];
+        }
+    }
+
+    player_bullet_count--;
+
+    //player_all_bullets = realloc(player_all_bullets, sizeof (struct player_bullet) * player_bullet_count);
 }
 
 /**

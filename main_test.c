@@ -10,6 +10,8 @@
 
 #include "funkcijasKarlim.c"
 #include "player.h"
+#include "player.c"
+//
 
 int main(void) {
 
@@ -33,8 +35,10 @@ int main(void) {
     create_map(game_map, 1);
 
     // creates demo player
-    int player1 = player_add();
-
+ 
+   int player1 = player_add();
+   
+   int player2 = player_add();
     // draws map with this player
     player_draw(game_map);
     getchar();
@@ -67,6 +71,26 @@ int main(void) {
             case 32:
                 //space key  
                 player_shoot(player1, game_map);
+                break;
+            case 97:
+                //call function 
+                player_move(player2, '<', game_map);
+                break;
+            case 100:
+                //call function 
+                player_move(player2, '>', game_map);
+                break;
+            case 115:
+                //call function 
+                player_move(player2, 'v', game_map);
+                break;
+            case 119:
+                //call function 
+                player_move(player2, '^', game_map);
+                break;
+            case  121:
+                //space key  
+                player_shoot(player2, game_map);
                 break;
         }
 
