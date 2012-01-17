@@ -18,7 +18,11 @@ static int player_count = 0;
 
 // bullet container
 static struct player_bullet * player_all_bullets;
-static int player_bullet_count;
+static int player_bullet_count = 0;
+
+int player_get_player_count() {
+    return player_count;
+}
 
 /**
  * Create new player.

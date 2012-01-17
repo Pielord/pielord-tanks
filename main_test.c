@@ -8,10 +8,8 @@
 #include <curses.h>
 
 
-#include "funkcijasKarlim.c"
+#include "map.h"
 #include "player.h"
-#include "player.c"
-//
 
 int main(void) {
 
@@ -101,17 +99,12 @@ int main(void) {
         int i;
 
         // check whether a player is alive
-        for (i = 0; i < player_count; i++) {
+        for (i = 0; i < player_get_player_count(); i++) {
             
             if(!player_is_alive(i)) {
                 
                 player_remove(i);
                 
-/*
-                
-                mvaddch(10, 10, '#');
-                refresh();
-*/
             }
         }
         
