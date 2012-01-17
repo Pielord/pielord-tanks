@@ -319,6 +319,9 @@ void check_bullet_colisions(int bullet_id) {
         if(all_players[i].x == player_all_bullets[bullet_id].x 
                 && all_players[i].y == player_all_bullets[bullet_id].y) {
             all_players[i].alive = 0;
+            
+            // remove this bullet
+            player_bullet_remove(i);
         }
     }
 }
