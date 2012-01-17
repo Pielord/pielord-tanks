@@ -43,7 +43,7 @@ int main(void) {
 
 
 
-    while (ch != 113) {
+    while (ch != 81) {
 
 
         ch = getch();
