@@ -22,7 +22,8 @@ enum __attribute__((packed)) tank_action_type {
     TANK_MOVE_UP,
     TANK_MOVE_DOWN,
     TANK_MOVE_LEFT,
-    TANK_MOVE_RIGHT
+    TANK_MOVE_RIGHT,
+    TANK_SHOOT
 };
 
 //MAP_INFO packet. Sent by server when client joins the server.
