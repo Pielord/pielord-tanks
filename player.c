@@ -105,35 +105,38 @@ void player_move(int player_id, char direction, MAP *map_p) {
         all_players[player_id].last_time_moved = now;
     }
 
-
-    // set player direction
-    all_players[player_id].direction = direction;
-
     // move player
     switch (direction) {
 
         case '>':
-            if (map_p->width > all_players[player_id].x + 1) {
+            if (map_p->width > all_players[player_id].x + 1 
+                    && direction==all_players[player_id].direction) {
                 all_players[player_id].x++;
             }
             break;
         case '<':
-            if (all_players[player_id].x - 1 >= 0) {
+            if (all_players[player_id].x - 1 >= 0
+                    && direction==all_players[player_id].direction) {
                 all_players[player_id].x--;
             }
             break;
         case '^':
-            if (all_players[player_id].y - 1 >= 0) {
+            if (all_players[player_id].y - 1 >= 0
+                    && direction==all_players[player_id].direction) {
                 all_players[player_id].y--;
             }
             break;
         case 'v':
-            if (map_p->height > all_players[player_id].y + 1) {
+            if (map_p->height > all_players[player_id].y + 1
+                    && direction==all_players[player_id].direction) {
                 all_players[player_id].y++;
             }
 
             break;
     }
+    
+    // set player direction
+    all_players[player_id].direction = direction;
 }
 
 void player_redraw_location_on_map(int player_id) {
