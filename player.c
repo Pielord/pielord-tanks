@@ -1,8 +1,10 @@
 #include <string.h>
 #include <unistd.h>
-
+#include <stdlib.h>
 #include <sys/time.h>
 #include <time.h>
+#include "map.h"
+#include "player.h"
 
 /*
 #include <event2/event.h>

@@ -39,3 +39,5 @@ void player_bullet_move(int bullet_id, MAP *map_p);
 void check_bullet_colisions(int bullet_id);
 double get_time(void);
 void player_bullet_remove(int bullet_id);
+void player_draw(MAP *map_p);
+void player_animate_bullets(MAP *map_p);
