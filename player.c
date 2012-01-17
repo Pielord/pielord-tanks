@@ -25,8 +25,11 @@ static int player_bullet_count;
  * @return int
  */
 int player_add() {
-
+    
     // @TODO put on a random location
+    int pos_x = rand() % MAP_WIDTH;
+    int pos_y = rand() % MAP_HEIGHT;
+    
     
     player_count++;
 
@@ -38,8 +41,8 @@ int player_add() {
     int player_id = player_count - 1;
 
     // set player x,y coords
-    all_players[player_id].x = (float) 1;
-    all_players[player_id].y = (float) 1;
+    all_players[player_id].x = (float) pos_x;
+    all_players[player_id].y = (float) pos_y;
     all_players[player_id].direction = '>';
     all_players[player_id].last_time_moved = 0.0;
     all_players[player_id].alive = 1;
@@ -49,14 +52,18 @@ int player_add() {
 
 }
 
-/*
+/**
+ * Initialize for randomness
+ * @param player_count
+ */
 void player_init_players(int player_count) {
+
     all_players = malloc(sizeof (player) * player_count);
 
-    //Some init code here.
-
+    // initialize random genearator
+    srand(time(NULL));
 }
- */
+
 
 /**
  * Redraw all players on the map
