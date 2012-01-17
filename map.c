@@ -21,7 +21,7 @@ void init_map_params(MAP *p_map) {
     memset(p_map->map_canvas.map_grid, ' ', map_size);
     
     // Read map
-    if ((fp = fopen("3.map", "r")) != NULL) {
+    if ((fp = fopen("4.map", "r")) != NULL) {
         //printf("Datu bāze atvērta!\n\n");
         fgets(p_map->map_canvas.map_grid, map_size + 1, fp);
     }
