@@ -86,8 +86,10 @@ void player_draw(MAP *map_p) {
     for (i = 0; i < player_count; i++) {
 
         int player_position = all_players[i].y * map_p->width + all_players[i].x;
-
-        map_p->map_canvas.map_grid[player_position] = all_players[i].direction;
+        
+        if(all_players[i].alive) {
+                map_p->map_canvas.map_grid[player_position] = all_players[i].direction;
+        }
     }
 
     // draw bullets
@@ -170,9 +172,10 @@ void player_redraw_location_on_map(int player_id) {
 /**
  * Remove player from player array by his id
  * @param player_id
+ * @depracated
  */
 void player_remove(int player_id) {
-
+    return;
     int i;
 
     // copy players one place up
