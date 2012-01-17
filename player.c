@@ -291,8 +291,8 @@ void player_bullet_move(int bullet_id, MAP *map_p) {
         player_all_bullets[bullet_id].last_time_moved = now;
     }
 
-
-
+    
+    
     // move player
     switch (player_all_bullets[bullet_id].direction) {
 
@@ -330,6 +330,14 @@ void player_bullet_move(int bullet_id, MAP *map_p) {
 
             break;
     }
+    
+    // check whether bullet isn't in a wall
+    char wall = get_map_element(map_p, player_all_bullets[bullet_id].x, player_all_bullets[bullet_id].y);
+    if (wall== '|' || wall == '-') {
+        player_bullet_remove(bullet_id);
+        return;
+    }
+    
     
     // check whether some player died
     check_bullet_colisions(bullet_id);
