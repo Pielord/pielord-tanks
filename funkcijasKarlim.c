@@ -6,8 +6,8 @@ size - masīva lielums
 data[] - masīvs ar simboliem
  */
 
-#define MAP_HEIGHT 23
-#define MAP_WIDTH 79
+#define MAP_HEIGHT 22
+#define MAP_WIDTH 78
 
 // kartes laukuma rāmis
 
@@ -78,9 +78,9 @@ void create_map(MAP *p_map, bool flag) {
 
     if (flag == TRUE) {
         mvhline(y, x, p_map->border.top, w+1); // augša
-        mvhline(y + h, x, p_map->border.top, w+1); // apakša
+        mvhline(y + h+1, x, p_map->border.top, w+1); // apakša
         mvvline(y + 1, x, p_map->border.side, h - 1); // kreisā puse
-        mvvline(y + 1, x + w, p_map->border.side, h - 1); // labā puse
+        mvvline(y + 1, x + w+1, p_map->border.side, h - 1); // labā puse
 
     } else
         for (j = y; j <= y + h; ++j)
@@ -95,9 +95,9 @@ void draw_map(MAP *p_map) {
 
     int x, y;
 
-    for (x = 1; x < p_map->width; x++) {
-        for (y = 1; y < p_map->height; y++) {
-            mvaddch(y, x, p_map->map_canvas.map_grid[y * p_map->width + x]);
+    for (x = 0; x < p_map->width; x++) {
+        for (y = 0; y < p_map->height; y++) {
+            mvaddch(y+1, x+1, p_map->map_canvas.map_grid[y * p_map->width + x]);
         }
     }
     refresh();
