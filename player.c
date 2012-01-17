@@ -149,7 +149,6 @@ void player_redraw_location_on_map(int player_id) {
  * Remove player from player array by his id
  * @param player_id
  */
-/*
 void player_remove(int player_id) {
 
     int i;
@@ -157,16 +156,16 @@ void player_remove(int player_id) {
     // copy players one place up
     for (i = 0; i < player_count; i++) {
         if (i > player_id) {
-            memcpy(all_players[i - 1], all_players[i], sizeof(player));
+            memcpy(&all_players[i - 1], &all_players[i], sizeof(player));
             //all_players[i - 1] = all_players[i];
         }
     }
 
     player_count--;
 
-    all_players = realloc(all_players, sizeof (player) * player_count);
+    //all_players = realloc(all_players, sizeof (player) * player_count);
 
-}*/
+}
 
 /**
  * Returns whether a player is alive
