@@ -209,7 +209,13 @@ int player_is_alive(int player_id) {
  * @param player_id
  */
 void player_shoot(int player_id, MAP *map_p) {
-
+    
+    // player can't shoot if he is dead
+    if(!all_players[player_id].alive) {
+        return;
+    }
+    
+    
     // limit bullet shooting
     double now = get_time();
 
