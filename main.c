@@ -10,8 +10,6 @@
 
 #include "funkcijasKarlim.c"
 #include "player.h"
-#include "player.c"
-//
 
 int main(void) {
 
