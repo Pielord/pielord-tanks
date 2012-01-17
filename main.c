@@ -25,12 +25,16 @@
 #include <event2/buffer.h>
 
 #include "client.h"
+#include "game.h"
 #include "packet.h"
 
 #define RUNNING_DIR "/user/local/bin"
 #define LOCK_FILE "tank-serv.lock"
 
 #define DEFAULT_PORT 3033
+
+//Game map.
+struct game_map map;
 
 static void
 readcb(struct bufferevent *bev, void *ctx)
@@ -134,6 +138,9 @@ accept_conn_cb(struct evconnlistener *listener,
     c->evloop = evconnlistener_get_base(listener);
     c->buf_event = bufferevent_socket_new(
             c->evloop, fd, BEV_OPT_CLOSE_ON_FREE);
+            
+    //Init player.
+    player_init(&(c->player_data), &(map));
     
     memcpy(&(c->address), address, sizeof(struct sockaddr));
     
@@ -287,6 +294,9 @@ main(int argc, char **argv)
     //Set up SIGTERM handler.
     term_event = evsignal_new(base, SIGTERM, sigterm_cb, (void *) base);
     event_add(term_event, NULL);
+    
+    printf("Load map.\n");
+    map_init(&map, "");
     
     printf("Starting main event loop.\n");
     

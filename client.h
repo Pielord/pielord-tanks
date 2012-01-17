@@ -2,9 +2,13 @@
 
 #include <event2/event.h>
 
+#include "game.h"
+
 struct client {
 	//Socket file descriptor.
 	int fd;
+	//Player ID.
+	struct player player_data;
 	//Pointer to servers event loop.
 	struct event_base *evloop;
 	//Clients I/O event.
@@ -24,3 +28,5 @@ void client_free_all_clients(void);
 
 //Tail of clients list.
 struct client *client_clients_tail;
+//Number of connected clients.
+int client_client_count;

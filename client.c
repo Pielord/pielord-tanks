@@ -7,6 +7,8 @@
 
 struct client *client_clients_tail;
 
+int client_client_count;
+
 struct client *
 client_new_client(void)
 {
@@ -18,6 +20,8 @@ client_new_client(void)
     }
     c->next = NULL;
     client_clients_tail = c;
+    
+    client_client_count++;
     
     return c;
 }
@@ -38,7 +42,9 @@ client_free_client(struct client *c)
     if (c->buf_event) {
         bufferevent_free(c->buf_event);
     }
-
+    
+    client_client_count--;
+    
     free(c);
 }
 
@@ -58,5 +64,7 @@ client_free_all_clients(void)
         free(client_clients_tail);
         
         client_clients_tail = temp;
+        
+        client_client_count--;
     }
 }
