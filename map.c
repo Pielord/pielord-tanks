@@ -14,16 +14,17 @@ void init_map_params(MAP *p_map) {
 
     p_map->border.top = '-';
     p_map->border.side = '|';
-
-if((fp = fopen("2.map", "r")) != NULL){
-		//printf("Datu bāze atvērta!\n\n");
-		fgets(map2, sizeof map2, fp);
-		}
-
+    
     // create and fill map
     int map_size = sizeof (char) * p_map->height * p_map->width;
     p_map->map_canvas.map_grid = malloc(sizeof (char) *map_size + 1);
     memset(p_map->map_canvas.map_grid, ' ', map_size);
+    
+    // Read map
+    if ((fp = fopen("2.map", "r")) != NULL) {
+        //printf("Datu bāze atvērta!\n\n");
+        fgets(p_map->map_canvas.map_grid, map_size + 1, fp);
+    }
     
     // clone map
     p_map->original_map.map_grid = malloc(sizeof (char) *map_size + 1);
