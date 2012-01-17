@@ -8,10 +8,8 @@
 #include <curses.h>
 
 
-#include "funkcijasKarlim.c"
+#include "map.h"
 #include "player.h"
-#include "player.c"
-//
 
 int main(void) {
 
