@@ -77,8 +77,8 @@ void create_map(MAP *p_map, bool flag) {
     h = p_map->height;
 
     if (flag == TRUE) {
-        mvhline(y, x, p_map->border.top, w - 1); // augša
-        mvhline(y + h, x, p_map->border.top, w - 1); // apakša
+        mvhline(y, x, p_map->border.top, w+1); // augša
+        mvhline(y + h, x, p_map->border.top, w+1); // apakša
         mvvline(y + 1, x, p_map->border.side, h - 1); // kreisā puse
         mvvline(y + 1, x + w, p_map->border.side, h - 1); // labā puse
 
@@ -95,8 +95,8 @@ void draw_map(MAP *p_map) {
 
     int x, y;
 
-    for (x = 0; x < p_map->width; x++) {
-        for (y = 0; y < p_map->height; y++) {
+    for (x = 1; x < p_map->width; x++) {
+        for (y = 1; y < p_map->height; y++) {
             mvaddch(y, x, p_map->map_canvas.map_grid[y * p_map->width + x]);
         }
     }
