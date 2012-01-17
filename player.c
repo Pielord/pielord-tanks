@@ -118,12 +118,12 @@ void player_move(int player_id, char direction, MAP *map_p) {
             }
             break;
         case '<':
-            if (all_players[player_id].x - 1 > 0) {
+            if (all_players[player_id].x - 1 >= 0) {
                 all_players[player_id].x--;
             }
             break;
         case '^':
-            if (all_players[player_id].y - 1 > 0) {
+            if (all_players[player_id].y - 1 >= 0) {
                 all_players[player_id].y--;
             }
             break;
@@ -213,20 +213,32 @@ void player_bullet_move(int bullet_id, MAP *map_p) {
             if (map_p->width > player_all_bullets[bullet_id].x + 1) {
                 player_all_bullets[bullet_id].x++;
             }
+            else {
+                player_bullet_remove(bullet_id);
+            }
             break;
         case '<':
-            if (player_all_bullets[bullet_id].x - 1 > 0) {
+            if (player_all_bullets[bullet_id].x - 1 >= 0) {
                 player_all_bullets[bullet_id].x--;
+            }
+            else {
+                player_bullet_remove(bullet_id);
             }
             break;
         case '^':
-            if (player_all_bullets[bullet_id].y - 1 > 0) {
+            if (player_all_bullets[bullet_id].y - 1 >= 0) {
                 player_all_bullets[bullet_id].y--;
+            }
+            else {
+                player_bullet_remove(bullet_id);
             }
             break;
         case 'v':
             if (map_p->height > player_all_bullets[bullet_id].y + 1) {
                 player_all_bullets[bullet_id].y++;
+            }
+            else {
+                player_bullet_remove(bullet_id);
             }
 
             break;
@@ -235,6 +247,27 @@ void player_bullet_move(int bullet_id, MAP *map_p) {
     // check whether some player died
     check_bullet_colisions(bullet_id);
 
+}
+
+/**
+ * Remove bullet from the map
+ * @param billet_id
+ */
+void player_bullet_remove(int bullet_id) {
+    
+    int i;
+
+    // copy players one place up
+    for (i = 0; i < player_bullet_count; i++) {
+        if (i > bullet_id) {
+            memcpy(&player_all_bullets[i - 1], &player_all_bullets[i], sizeof(struct player_bullet));
+            //all_players[i - 1] = all_players[i];
+        }
+    }
+
+    player_bullet_count--;
+
+    //player_all_bullets = realloc(player_all_bullets, sizeof (struct player_bullet) * player_bullet_count);
 }
 
 /**
