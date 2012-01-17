@@ -96,7 +96,26 @@ int main(void) {
 
         // animate all bullets.
         player_animate_bullets(game_map);
+        
+        
+        int i;
 
+        // check whether a player is alive
+        for (i = 0; i < player_count; i++) {
+            
+            if(!player_is_alive(i)) {
+                
+                player_remove(i);
+                
+/*
+                
+                mvaddch(10, 10, '#');
+                refresh();
+*/
+            }
+        }
+        
+        
         
         // draw map for the player
         player_draw(game_map);
