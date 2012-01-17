@@ -84,6 +84,13 @@ void draw_map(MAP *p_map) {
     refresh();
 }
 
+/**
+ * Returns map element for specific coords
+ */
+char get_map_element(MAP *map_p, int x, int y) {
+    return map_p->map_canvas.map_grid[y * map_p->width + x];
+}
+
 void fill_map(int x, int y, int size, char mas[]) {
     int i, j = 0;
     int xx = x - 1, yy = 1;
