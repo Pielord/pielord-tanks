@@ -88,7 +88,7 @@ int main(void) {
     create_map(game_map, 1);
 
     // creates demo player
-    int player1 = player_add();
+    int player1 = player_add(game_map);
 
     // draws map with this player
     player_draw(game_map);

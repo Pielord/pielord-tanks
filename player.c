@@ -18,7 +18,11 @@ static int player_count = 0;
 
 // bullet container
 static struct player_bullet * player_all_bullets;
-static int player_bullet_count;
+static int player_bullet_count = 0;
+
+int player_get_player_count() {
+    return player_count;
+}
 
 /**
  * Create new player.
@@ -26,22 +30,31 @@ static int player_bullet_count;
  * @param y
  * @return int
  */
-int player_add() {
+int player_add(MAP *map_p) {
+    
+    int pos_x,pos_y;
+    char wall;
+    do {
+        // put on a random location
+        pos_x = rand() % MAP_WIDTH;
+        pos_y = rand() % MAP_HEIGHT;
 
-    // @TODO put on a random location
+        wall = get_map_element(map_p, pos_x, pos_y);
+    } while(wall != ' ');
+    
     
     player_count++;
 
     // add place for player in memory
     all_players = realloc(all_players, sizeof (player) * player_count);
 
-
+    
     // players id.
     int player_id = player_count - 1;
 
     // set player x,y coords
-    all_players[player_id].x = (float) 1;
-    all_players[player_id].y = (float) 1;
+    all_players[player_id].x = (float) pos_x;
+    all_players[player_id].y = (float) pos_y;
     all_players[player_id].direction = '>';
     all_players[player_id].last_time_moved = 0.0;
     all_players[player_id].alive = 1;
@@ -51,14 +64,18 @@ int player_add() {
 
 }
 
-/*
+/**
+ * Initialize for randomness
+ * @param player_count
+ */
 void player_init_players(int player_count) {
+
     all_players = malloc(sizeof (player) * player_count);
 
-    //Some init code here.
-
+    // initialize random genearator
+    srand(time(NULL));
 }
- */
+
 
 /**
  * Redraw all players on the map
@@ -75,8 +92,10 @@ void player_draw(MAP *map_p) {
     for (i = 0; i < player_count; i++) {
 
         int player_position = all_players[i].y * map_p->width + all_players[i].x;
-
-        map_p->map_canvas.map_grid[player_position] = all_players[i].direction;
+        
+        if(all_players[i].alive) {
+                map_p->map_canvas.map_grid[player_position] = all_players[i].direction;
+        }
     }
 
     // draw bullets
@@ -108,6 +127,9 @@ void player_move(int player_id, char direction, MAP *map_p) {
     } else {
         all_players[player_id].last_time_moved = now;
     }
+    
+    int old_x = all_players[player_id].x;
+    int old_y = all_players[player_id].y;
 
     // move player
     switch (direction) {
@@ -139,6 +161,12 @@ void player_move(int player_id, char direction, MAP *map_p) {
             break;
     }
     
+    // check whether player can move here
+    if(get_map_element(map_p, all_players[player_id].x, all_players[player_id].y) !=' ') {
+        all_players[player_id].x = old_x;
+        all_players[player_id].y = old_y;
+    }
+    
     // set player direction
     all_players[player_id].direction = direction;
 }
@@ -150,9 +178,10 @@ void player_redraw_location_on_map(int player_id) {
 /**
  * Remove player from player array by his id
  * @param player_id
+ * @depracated
  */
 void player_remove(int player_id) {
-
+    return;
     int i;
 
     // copy players one place up
@@ -186,7 +215,13 @@ int player_is_alive(int player_id) {
  * @param player_id
  */
 void player_shoot(int player_id, MAP *map_p) {
-
+    
+    // player can't shoot if he is dead
+    if(!all_players[player_id].alive) {
+        return;
+    }
+    
+    
     // limit bullet shooting
     double now = get_time();
 
@@ -197,7 +232,6 @@ void player_shoot(int player_id, MAP *map_p) {
         all_players[player_id].last_time_shot = now;
     }
     
-    
     player_bullet_count++;
 
     // add place for player in memory
@@ -207,13 +241,43 @@ void player_shoot(int player_id, MAP *map_p) {
     // players id.
     int bullet_id = player_bullet_count - 1;
 
-    // @TODO put bullet 1 field ahed player
+    
     // set bullet coords, direction
     player_all_bullets[bullet_id].direction = all_players[player_id].direction;
-    player_all_bullets[bullet_id].x = all_players[player_id].x;
-    player_all_bullets[bullet_id].y = all_players[player_id].y;
+    
     player_all_bullets[bullet_id].last_time_moved = get_time();
+    
+    
+    // @TODO put bullet 1 field ahed player
+    switch (player_all_bullets[bullet_id].direction) {
 
+        case '>':
+            player_all_bullets[bullet_id].x = all_players[player_id].x+1;
+            player_all_bullets[bullet_id].y = all_players[player_id].y;
+            break;
+        case '<':
+            player_all_bullets[bullet_id].x = all_players[player_id].x-1;
+            player_all_bullets[bullet_id].y = all_players[player_id].y;
+            break;
+        case '^':
+            player_all_bullets[bullet_id].x = all_players[player_id].x;
+            player_all_bullets[bullet_id].y = all_players[player_id].y-1;
+            break;
+        case 'v':
+            player_all_bullets[bullet_id].x = all_players[player_id].x;
+            player_all_bullets[bullet_id].y = all_players[player_id].y+1;
+            break;
+    }
+    
+    // check if bullet isn't out of bounds
+    if (player_all_bullets[bullet_id].y < 0 
+            || player_all_bullets[bullet_id].x < 0 
+            || player_all_bullets[bullet_id].x > map_p->width-1 
+            || player_all_bullets[bullet_id].y > map_p->height-1
+       ) {
+        player_bullet_remove(bullet_id);
+    }
+    
 }
 
 /**
@@ -233,8 +297,8 @@ void player_bullet_move(int bullet_id, MAP *map_p) {
         player_all_bullets[bullet_id].last_time_moved = now;
     }
 
-
-
+    
+    
     // move player
     switch (player_all_bullets[bullet_id].direction) {
 
@@ -272,6 +336,14 @@ void player_bullet_move(int bullet_id, MAP *map_p) {
 
             break;
     }
+    
+    // check whether bullet isn't in a wall
+    char wall = get_map_element(map_p, player_all_bullets[bullet_id].x, player_all_bullets[bullet_id].y);
+    if (wall== '|' || wall == '-') {
+        player_bullet_remove(bullet_id);
+        return;
+    }
+    
     
     // check whether some player died
     check_bullet_colisions(bullet_id);
@@ -314,6 +386,9 @@ void check_bullet_colisions(int bullet_id) {
         if(all_players[i].x == player_all_bullets[bullet_id].x 
                 && all_players[i].y == player_all_bullets[bullet_id].y) {
             all_players[i].alive = 0;
+            
+            // remove this bullet
+            player_bullet_remove(i);
         }
     }
 }

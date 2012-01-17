@@ -31,7 +31,7 @@ struct player_bullet {
 #define PLAYER_BULLET_SHOOT_FPS 4
 #define PLAYER_MOVEMENT_FPS 16
 
-int player_add();
+int player_add(MAP *map_p);
 void remove_player(int player_id);
 void player_shoot(int player_id, MAP *map_p);
 void player_move(int player_id, char direction, MAP *map_p);
@@ -41,3 +41,5 @@ double get_time(void);
 void player_bullet_remove(int bullet_id);
 void player_draw(MAP *map_p);
 void player_animate_bullets(MAP *map_p);
+int player_is_alive(int player_id);
+void player_remove(int player_id);

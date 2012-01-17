@@ -8,10 +8,8 @@
 #include <curses.h>
 
 
-#include "funkcijasKarlim.c"
+#include "map.h"
 #include "player.h"
-#include "player.c"
-//
 
 int main(void) {
 
@@ -36,9 +34,9 @@ int main(void) {
 
     // creates demo player
  
-   int player1 = player_add();
+   int player1 = player_add(game_map);
    
-   int player2 = player_add();
+   int player2 = player_add(game_map);
     // draws map with this player
     player_draw(game_map);
     getchar();
@@ -96,7 +94,21 @@ int main(void) {
 
         // animate all bullets.
         player_animate_bullets(game_map);
+        
+        
+        int i;
 
+        // check whether a player is alive
+        for (i = 0; i < player_get_player_count(); i++) {
+            
+            if(!player_is_alive(i)) {
+                
+                player_remove(i);
+                
+            }
+        }
+        
+        
         
         // draw map for the player
         player_draw(game_map);
