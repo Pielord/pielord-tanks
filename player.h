@@ -6,6 +6,7 @@ typedef struct {
     char direction;
     
     double last_time_moved;
+    double last_time_shot;
     
     // player is alive
     int alive;
@@ -27,6 +28,7 @@ struct player_bullet {
 
 // define how fast bullet will move
 #define PLAYER_BULLET_FPS 32
+#define PLAYER_BULLET_SHOOT_FPS 4
 #define PLAYER_MOVEMENT_FPS 16
 
 int player_add();

@@ -169,6 +169,17 @@ void player_remove(int player_id) {
  */
 void player_shoot(int player_id, MAP *map_p) {
 
+    // limit bullet shooting
+    double now = get_time();
+
+    double player_movement = 1.0 / PLAYER_BULLET_SHOOT_FPS;
+    if (all_players[player_id].last_time_shot + player_movement > now) {
+        return;
+    } else {
+        all_players[player_id].last_time_shot = now;
+    }
+    
+    
     player_bullet_count++;
 
     // add place for player in memory
