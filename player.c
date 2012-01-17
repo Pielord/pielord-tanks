@@ -6,6 +6,7 @@
 #include "map.h"
 #include "player.h"
 
+
 /*
 #include <event2/event.h>
 #include <event2/listener.h>
@@ -89,6 +90,7 @@ void player_draw(MAP *map_p) {
     int i;
 
     // draw players
+    attron(COLOR_PAIR(1));
     for (i = 0; i < player_count; i++) {
 
         int player_position = all_players[i].y * map_p->width + all_players[i].x;
@@ -97,7 +99,7 @@ void player_draw(MAP *map_p) {
                 map_p->map_canvas.map_grid[player_position] = all_players[i].direction;
         }
     }
-
+    attroff(COLOR_PAIR(1));
     // draw bullets
     for (i = 0; i < player_bullet_count; i++) {
 

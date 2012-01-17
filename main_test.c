@@ -20,9 +20,12 @@ int main(void) {
     keypad(stdscr, TRUE);
     nodelay(stdscr, TRUE);
     noecho();
-
+    start_color();          // turn on color function
+    assume_default_colors(COLOR_WHITE, COLOR_BLACK); // default colors
     //Nezinu kadaa martinsh shito kompileeja :/
 
+    // Initialize color parameters
+	init_pair(1, COLOR_RED, COLOR_BLACK);
 
     // creates map
     MAP * game_map;

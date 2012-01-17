@@ -5,7 +5,12 @@
 
 FILE *fp;
 char map2[1520];
-
+/*
+char left = {"<"};
+char right = {">"};
+char up = {"^"};
+char down = {"v"};
+*/
 void init_map_params(MAP *p_map) {
     p_map->height = MAP_HEIGHT;
     p_map->width = MAP_WIDTH;
@@ -51,17 +56,22 @@ void print_map_params(MAP *p_map) {
 void create_map(MAP *p_map, bool flag) {
     int i, j;
     int x, y, w, h;
-
+    init_pair(2, COLOR_WHITE, COLOR_BLACK);
+    
     x = p_map->startx;
     y = p_map->starty;
     w = p_map->width;
     h = p_map->height;
 
     if (flag == TRUE) {
+        attron(A_BOLD);
+        attron(COLOR_PAIR(2));
         mvhline(y, x, p_map->border.top, w+2); // augša
         mvhline(y + h+1, x, p_map->border.top, w+2); // apakša
         mvvline(y + 1, x, p_map->border.side, h); // kreisā puse
         mvvline(y + 1, x + w+1, p_map->border.side, h); // labā puse
+        attroff(COLOR_PAIR(2));
+        attroff(A_BOLD);
 
     } else
         for (j = y; j <= y + h; ++j)
@@ -73,12 +83,25 @@ void create_map(MAP *p_map, bool flag) {
 }
 
 void draw_map(MAP *p_map) {
-
+    init_pair(1, COLOR_GREEN, COLOR_BLACK);
+    init_pair(3, COLOR_RED, COLOR_BLACK);
     int x, y;
 
     for (x = 0; x < p_map->width; x++) {
         for (y = 0; y < p_map->height; y++) {
-            mvaddch(y+1, x+1, p_map->map_canvas.map_grid[y * p_map->width + x]);
+            if((p_map->map_canvas.map_grid[y * p_map->width + x] == '|') || (p_map->map_canvas.map_grid[y * p_map->width + x] == '-')){
+                attron(A_BOLD);
+                attron(COLOR_PAIR(1));
+                mvaddch(y+1, x+1, p_map->map_canvas.map_grid[y * p_map->width + x]);
+                attroff(COLOR_PAIR(1));
+                attroff(A_BOLD);
+            }else{
+                attron(A_BOLD);
+                attron(COLOR_PAIR(3));
+                mvaddch(y+1, x+1, p_map->map_canvas.map_grid[y * p_map->width + x]);
+                attroff(COLOR_PAIR(3));
+                attroff(A_BOLD);
+            }
         }
     }
     refresh();
