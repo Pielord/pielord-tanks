@@ -26,6 +26,8 @@ static int player_bullet_count;
  */
 int player_add() {
 
+    // @TODO put on a random location
+    
     player_count++;
 
     // add place for player in memory
@@ -165,6 +167,18 @@ void player_remove(int player_id) {
     all_players = realloc(all_players, sizeof (player) * player_count);
 
 }*/
+
+/**
+ * Returns whether a player is alive
+ * @param player_id
+ * @return 
+ */
+int player_is_alive(int player_id) {
+    
+    return all_players[player_id].alive;
+    
+}
+
 
 /**
  * create new bullet
