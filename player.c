@@ -30,11 +30,17 @@ int player_get_player_count() {
  * @param y
  * @return int
  */
-int player_add() {
+int player_add(MAP *map_p) {
     
-    // @TODO put on a random location
-    int pos_x = rand() % MAP_WIDTH;
-    int pos_y = rand() % MAP_HEIGHT;
+    int pos_x,pos_y;
+    char wall;
+    do {
+        // put on a random location
+        pos_x = rand() % MAP_WIDTH;
+        pos_y = rand() % MAP_HEIGHT;
+
+        wall = get_map_element(map_p, pos_x, pos_y);
+    } while(wall != ' ');
     
     
     player_count++;
@@ -42,7 +48,7 @@ int player_add() {
     // add place for player in memory
     all_players = realloc(all_players, sizeof (player) * player_count);
 
-
+    
     // players id.
     int player_id = player_count - 1;
 
