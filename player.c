@@ -223,8 +223,11 @@ void player_shoot(int player_id, MAP *map_p) {
     player_all_bullets[bullet_id].direction = all_players[player_id].direction;
     player_all_bullets[bullet_id].x = all_players[player_id].x;
     player_all_bullets[bullet_id].y = all_players[player_id].y;
-    player_all_bullets[bullet_id].last_time_moved = get_time();
-
+    player_all_bullets[bullet_id].last_time_moved = 0.0();
+    
+    
+    // move this bullet one place forward
+    player_bullet_move(bullet_id, map_p);
 }
 
 /**
