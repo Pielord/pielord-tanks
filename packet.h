@@ -18,7 +18,7 @@ enum __attribute__((packed)) tank_packet_type {
 //dropped if any error is encountered.
 
 //Used for 'action_id'.
-enum __attribute__((packed)) tank_packet_type {
+enum __attribute__((packed)) tank_action_type {
     TANK_MOVE_UP,
     TANK_MOVE_DOWN,
     TANK_MOVE_LEFT,
@@ -30,7 +30,7 @@ struct __attribute__((packed)) tank_packet_map_info {
     enum tank_packet_type packet_id;
     
     uint16_t map_size_x;
-    uint16_t map_size_x;
+    uint16_t map_size_y;
     //Not used.
     //uint8_t map_name[TANK_STR_LEN];
 };
