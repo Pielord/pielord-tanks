@@ -208,7 +208,6 @@ void player_shoot(int player_id, MAP *map_p) {
         all_players[player_id].last_time_shot = now;
     }
     
-    
     player_bullet_count++;
 
     // add place for player in memory
@@ -218,16 +217,43 @@ void player_shoot(int player_id, MAP *map_p) {
     // players id.
     int bullet_id = player_bullet_count - 1;
 
-    // @TODO put bullet 1 field ahed player
+    
     // set bullet coords, direction
     player_all_bullets[bullet_id].direction = all_players[player_id].direction;
-    player_all_bullets[bullet_id].x = all_players[player_id].x;
-    player_all_bullets[bullet_id].y = all_players[player_id].y;
-    player_all_bullets[bullet_id].last_time_moved = 0.0();
+    
+    player_all_bullets[bullet_id].last_time_moved = get_time();
     
     
-    // move this bullet one place forward
-    player_bullet_move(bullet_id, map_p);
+    // @TODO put bullet 1 field ahed player
+    switch (player_all_bullets[bullet_id].direction) {
+
+        case '>':
+            player_all_bullets[bullet_id].x = all_players[player_id].x+1;
+            player_all_bullets[bullet_id].y = all_players[player_id].y;
+            break;
+        case '<':
+            player_all_bullets[bullet_id].x = all_players[player_id].x-1;
+            player_all_bullets[bullet_id].y = all_players[player_id].y;
+            break;
+        case '^':
+            player_all_bullets[bullet_id].x = all_players[player_id].x;
+            player_all_bullets[bullet_id].y = all_players[player_id].y-1;
+            break;
+        case 'v':
+            player_all_bullets[bullet_id].x = all_players[player_id].x;
+            player_all_bullets[bullet_id].y = all_players[player_id].y+1;
+            break;
+    }
+    
+    // check if bullet isn't out of bounds
+    if (player_all_bullets[bullet_id].y < 0 
+            || player_all_bullets[bullet_id].x < 0 
+            || player_all_bullets[bullet_id].x > map_p->width-1 
+            || player_all_bullets[bullet_id].y > map_p->height-1
+       ) {
+        player_bullet_remove(bullet_id);
+    }
+    
 }
 
 /**
