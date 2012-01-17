@@ -118,12 +118,12 @@ void player_move(int player_id, char direction, MAP *map_p) {
             }
             break;
         case '<':
-            if (all_players[player_id].x - 1 > 0) {
+            if (all_players[player_id].x - 1 >= 0) {
                 all_players[player_id].x--;
             }
             break;
         case '^':
-            if (all_players[player_id].y - 1 > 0) {
+            if (all_players[player_id].y - 1 >= 0) {
                 all_players[player_id].y--;
             }
             break;
@@ -218,7 +218,7 @@ void player_bullet_move(int bullet_id, MAP *map_p) {
             }
             break;
         case '<':
-            if (player_all_bullets[bullet_id].x - 1 > 0) {
+            if (player_all_bullets[bullet_id].x - 1 >= 0) {
                 player_all_bullets[bullet_id].x--;
             }
             else {
@@ -226,7 +226,7 @@ void player_bullet_move(int bullet_id, MAP *map_p) {
             }
             break;
         case '^':
-            if (player_all_bullets[bullet_id].y - 1 > 0) {
+            if (player_all_bullets[bullet_id].y - 1 >= 0) {
                 player_all_bullets[bullet_id].y--;
             }
             else {
