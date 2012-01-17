@@ -1,17 +1,72 @@
 #include <stdlib.h>
-#include <stdio.h>
+//#include <stdio.h>
 
-//#include <conio.h>
 
 #include <unistd.h>
 
 #include <curses.h>
 
+#include <stdio.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <netinet/in.h>
+
+
+
 
 #include "map.h"
 #include "player.h"
+#include "../tanki-serv/packet.h"
+
+#define BUFFSIZE 32
+#define PORT 3033
+
+void Die(char *mess) { perror(mess); exit(1); }
+           
+
+
 
 int main(void) {
+	
+	 int sock;
+     struct sockaddr_in serv;
+     char buffer[BUFFSIZE];
+     unsigned int servlen;
+     int received = 0;
+	/*
+    if (argc != 1) {
+      fprintf(stderr, "USAGE: tanki <server_ip>\n");
+      exit(1);
+    }*/
+            /* Create the TCP socket */
+    if ((sock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0) {
+      Die("Failed to create socket");
+    }
+	
+	
+	
+	  memset(&serv, 0, sizeof(serv));       
+      serv.sin_family = AF_INET;                  
+      //serv.sin_addr.s_addr = inet_addr(argv[1]); 
+      serv.sin_addr.s_addr = htonl(0x7f000001); // 127.0.0.1
+
+      serv.sin_port = htons(PORT);       
+    // Establish connection 
+    
+    if (connect(sock,
+                (struct sockaddr *) &serv,
+                sizeof(serv)) < 0) {
+      Die("Failed to connect with server");
+    }
+
+	servlen = sizeof(serv);
+	  
+	if (bind(sock, (struct sockaddr *) &serv, servlen) < 0) {
+		Die("Failed to bind server socket");
+	}
 
     int ch = 0;
     initscr(); // Start curses mode
